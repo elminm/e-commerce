@@ -38,13 +38,15 @@ export default function Header() {
             style={{ border: basket?.length > 0 ? "1px solid red" : "" }}
             onClick={() => navigate("/basket")}
           >
-            Basket{" "}
+            Basket
             <Badge badgeContent={basket.length} color="primary">
               <AddShoppingCartIcon color="action" />
             </Badge>
           </Button>
 
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={() => navigate("/login")}>
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
