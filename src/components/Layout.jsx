@@ -1,14 +1,13 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import Footer from "./footer/Footer";
 import Header from "./header/Header";
-
 function Layout({ children }) {
   return (
-    <>
+    <div className="layout">
       <Header />
-      {children}
+      <div style={{ minHeight: "calc(100vh - 128px)" }}> {children}</div>
       <Footer />
-    </>
+    </div>
   );
 }
 
