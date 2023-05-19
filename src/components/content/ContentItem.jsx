@@ -30,9 +30,11 @@ export default function ContentItem({
       style={{ border: checkBasket ? "2px solid red" : "" }}
     >
       <CardMedia
-        sx={{ width: "100%", minHeight: 200, objectFit: "cover" }}
+        component="img"
+        height="140"
         image={image}
         title={title}
+        sx={{ width: "100%", minHeight: 300, objectFit: "contain" }}
       />
       <CardContent>
         <Typography variant="h6" component="p" noWrap>
