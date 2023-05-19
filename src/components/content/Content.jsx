@@ -8,7 +8,6 @@ function Content() {
   const { data, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: () => axios("https://fakestoreapi.com/products"),
-    staleTime: 60000,
   });
 
   return (

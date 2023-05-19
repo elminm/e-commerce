@@ -13,12 +13,13 @@ export default function ContentItem({
   title,
   category,
   description,
+  price,
 }) {
   const { basket, setBasket } = useContext(Context);
-  const addToBasket = (id, title, description) => {
+  const addToBasket = (id, title, description, price, image) => {
     const checkBasket = basket?.find((q) => q.id === id);
     if (!checkBasket) {
-      setBasket((prev) => [...prev, { id, title, description }]);
+      setBasket((prev) => [...prev, { id, title, description, price }]);
     } else {
       setBasket([...basket.filter((q) => q.id !== id)]);
     }
@@ -26,7 +27,7 @@ export default function ContentItem({
   const checkBasket = basket.find((q) => q.id === id);
   return (
     <Card
-      sx={{ maxWidth: 345, minHeight: 250 }}
+      sx={{ maxWidth: 345, minHeight: 250, padding: "5%" }}
       style={{ border: checkBasket ? "2px solid red" : "" }}
     >
       <CardMedia
@@ -34,7 +35,7 @@ export default function ContentItem({
         height="140"
         image={image}
         title={title}
-        sx={{ width: "100%", minHeight: 300, objectFit: "contain" }}
+        sx={{ objectFit: "contain" }}
       />
       <CardContent>
         <Typography variant="h6" component="p" noWrap>
@@ -46,7 +47,12 @@ export default function ContentItem({
         <Typography variant="body2" color="text.secondary" noWrap>
           {description}
         </Typography>
-        <Button onClick={() => addToBasket(id, title, description)}>
+        <Typography variant="h5" color="text.primary" noWrap>
+          {price}$
+        </Typography>
+        <Button
+          onClick={() => addToBasket(id, title, description, price, image)}
+        >
           {checkBasket ? "Remove from Basket" : "Add to Basket"}
         </Button>
       </CardContent>
