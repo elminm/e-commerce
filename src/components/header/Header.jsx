@@ -9,8 +9,14 @@ import { useContext } from "react";
 import Badge from "@mui/material/Badge";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 export default function Header() {
-  const { basket } = useContext(Context);
+  const { basket, user, setUser } = useContext(Context);
   const navigate = useNavigate();
+  const isLoggedIn = () => {
+    if (user.length > 0) {
+      setUser([]);
+    }
+    navigate("/login");
+  };
   return (
     <Box style={{ marginBottom: 20, position: "sticky", top: 0 }}>
       <AppBar position="static">
@@ -40,12 +46,14 @@ export default function Header() {
           >
             Basket
             <Badge badgeContent={basket.length} color="primary">
-              <AddShoppingCartIcon color="action" />
+              <AddShoppingCartIcon color="white" sx={{ ml: "9px" }} />
             </Badge>
           </Button>
-
-          <Button color="inherit" onClick={() => navigate("/login")}>
-            Login
+          <Button
+            color={user.length > 0 ? "warning" : "inherit"}
+            onClick={isLoggedIn}
+          >
+            {user.length > 0 ? "Logout" : "Login"}
           </Button>
         </Toolbar>
       </AppBar>

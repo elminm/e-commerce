@@ -10,8 +10,17 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "./loginValidatonSchema";
 import Copyright from "./Copyrigth";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 const defaultTheme = createTheme();
+
 export default function LoginPage() {
+  const { registeredUsers, setUser } = useContext(Context);
+  const navigate = useNavigate();
+  const register = () => {
+    navigate("/register");
+  };
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -19,7 +28,16 @@ export default function LoginPage() {
     },
     validationSchema: loginValidationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      console.log(registeredUsers);
+      const isRegistered = registeredUsers?.find(
+        (q) => q.email == values.email && q.password == values.password
+      );
+      if (isRegistered) {
+        setUser([values]);
+        navigate("/products");
+      } else {
+        alert("you must register first");
+      }
     },
   });
 
@@ -41,12 +59,7 @@ export default function LoginPage() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={formik.handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               fullWidth
@@ -77,6 +90,9 @@ export default function LoginPage() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
+            </Button>
+            <Button fullWidth variant="contained" onClick={register}>
+              Register
             </Button>
           </Box>
         </Box>
