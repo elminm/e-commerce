@@ -20,12 +20,13 @@ function Basket() {
           gap: "10px",
         }}
       >
-        {basket?.map(({ id, title, description, price, image }) => (
+        {basket?.map(({ id, title, price, image }) => (
           <>
             <Card sx={{ padding: "1% 2%", width: "200px" }}>
               <CardMedia
                 component="img"
-                height="140"
+                height={180}
+                width="100%"
                 image={image}
                 title={title}
                 sx={{ objectFit: "contain" }}
@@ -34,19 +35,22 @@ function Basket() {
                 <Typography variant="h6" component="p" noWrap>
                   {title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" noWrap>
-                  {description}
-                </Typography>
                 <Typography variant="h5" color="text.primary" noWrap>
                   {price}$
                 </Typography>
                 <Button
                   variant="contained"
                   onClick={() =>
-                    setBasket([...basket.filter((q) => q.id != id)])
+                    setBasket([...basket.filter((q) => q.id !== id)])
                   }
+                  sx={{
+                    mt: 2,
+                    padding: "10px 20px",
+                    borderRadius: "4px",
+                    boxShadow: "none",
+                  }}
                 >
-                  Remove from Basket
+                  Remove
                 </Button>
               </CardContent>
             </Card>
@@ -54,8 +58,13 @@ function Basket() {
         ))}
       </div>
       <h1>
-        Total:{" "}
-        {total > 0 ? <h2>{total.toFixed(2)}$</h2> : <h1>Basket Is Empty</h1>}
+        {total > 0 ? (
+          <>
+            Total: <span>{total.toFixed(2)}$</span>
+          </>
+        ) : (
+          <p>Basket Is Empty</p>
+        )}
       </h1>
     </>
   );

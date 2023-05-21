@@ -7,14 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 
-export default function ContentItem({
-  id,
-  image,
-  title,
-  category,
-  description,
-  price,
-}) {
+export default function ContentItem({ id, image, title, description, price }) {
   const { basket, setBasket } = useContext(Context);
   const addToBasket = (id, title, description, price, image) => {
     const checkBasket = basket?.find((q) => q.id === id);
@@ -26,10 +19,11 @@ export default function ContentItem({
   };
   const checkBasket = basket.find((q) => q.id === id);
   return (
-    <Card sx={{ maxWidth: 345, minHeight: 250, padding: "5%" }}>
+    <Card sx={{ width: "100%", height: "100%", padding: "5%" }}>
       <CardMedia
         component="img"
-        height="140"
+        height={180}
+        width="100%"
         image={image}
         title={title}
         sx={{ objectFit: "contain" }}
@@ -38,18 +32,18 @@ export default function ContentItem({
         <Typography variant="h6" component="p" noWrap>
           {title}
         </Typography>
-        <Typography variant="h6" color="text.secondary" noWrap>
-          {category.toUpperCase()}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" noWrap>
-          {description}
-        </Typography>
-        <Typography variant="h5" color="text.primary" noWrap>
+        <Typography
+          variant="h5"
+          color="text.primary"
+          noWrap
+          sx={{ marginTop: 2 }}
+        >
           {price}$
         </Typography>
         <Button
           onClick={() => addToBasket(id, title, description, price, image)}
           variant={checkBasket ? "contained" : "outlined"}
+          sx={{ marginTop: 2 }}
         >
           {checkBasket ? "Remove from Basket" : "Add to Basket"}
         </Button>

@@ -5,7 +5,7 @@ function Layout({ children }) {
   return (
     <div className="layout">
       <Header />
-      <div style={{ minHeight: "calc(100vh - 128px)" }}> {children}</div>
+      <div> {children}</div>
       <Footer />
     </div>
   );

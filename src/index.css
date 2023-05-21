@@ -1,6 +1,7 @@
 body {
     margin: 0;
 }
-.layout {
-    background-color: beige;
+
+*{
+    box-sizing: border-box;
 }

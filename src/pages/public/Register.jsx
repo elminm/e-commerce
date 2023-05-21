@@ -30,7 +30,7 @@ export default function Register() {
       );
       if (!isRegistered) {
         setRegisteredUsers([...registeredUsers, values]);
-        alert("you register successful");
+        alert("you registered successfully");
         navigate("/login");
       } else {
         alert("you already register");
@@ -103,7 +103,7 @@ export default function Register() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Register
+              Confirm
             </Button>
             <Button
               fullWidth

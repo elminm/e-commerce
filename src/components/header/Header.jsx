@@ -18,7 +18,7 @@ export default function Header() {
     navigate("/login");
   };
   return (
-    <Box style={{ marginBottom: 20, position: "sticky", top: 0 }}>
+    <Box style={{ marginBottom: 20, position: "sticky", top: 0, zIndex: 2 }}>
       <AppBar position="static">
         <Toolbar
           style={{
@@ -28,8 +28,28 @@ export default function Header() {
           }}
         >
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-            E-Commerce
+            {user.length > 0 ? (
+              <span
+                style={{
+                  color: user.length > 0 ? "023d4cc9" : "",
+                  fontWeight: "bold",
+                  display: "inline-block",
+                  fontSize: "23px",
+                }}
+              >{`Welcome ${user[0].email} ; )`}</span>
+            ) : (
+              "E - Commerce"
+            )}
           </Typography>
+          {user.length > 0 && (
+            <Button
+              variant="h6"
+              component="div"
+              onClick={() => navigate("/admin")}
+            >
+              Admin
+            </Button>
+          )}
           <Button
             variant="h6"
             component="div"
@@ -37,6 +57,7 @@ export default function Header() {
           >
             Products
           </Button>
+
           <Button
             color="inherit"
             variant="h6"

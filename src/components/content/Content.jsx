@@ -1,24 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import "./Content.css";
 import Grid from "@mui/material/Grid";
 import ContentItem from "./ContentItem";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 function Content() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => axios("https://fakestoreapi.com/products"),
-  });
+  const { products } = useContext(Context);
 
   return (
     <>
-      {isLoading && <h1>Loading...</h1>}
-      {data && (
+      {products && (
         <div className="content">
-          <Grid container spacing={2}>
-            {data.data.map((item) => (
+          <Grid container spacing={3}>
+            {products.data.map((item) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-                <ContentItem data={data.data} {...item} />
+                <ContentItem data={products.data} {...item} />
               </Grid>
             ))}
           </Grid>
