@@ -19,17 +19,14 @@ export default function ContentItem({
   const addToBasket = (id, title, description, price, image) => {
     const checkBasket = basket?.find((q) => q.id === id);
     if (!checkBasket) {
-      setBasket((prev) => [...prev, { id, title, description, price }]);
+      setBasket((prev) => [...prev, { id, title, description, price, image }]);
     } else {
       setBasket([...basket.filter((q) => q.id !== id)]);
     }
   };
   const checkBasket = basket.find((q) => q.id === id);
   return (
-    <Card
-      sx={{ maxWidth: 345, minHeight: 250, padding: "5%" }}
-      style={{ border: checkBasket ? "2px solid red" : "" }}
-    >
+    <Card sx={{ maxWidth: 345, minHeight: 250, padding: "5%" }}>
       <CardMedia
         component="img"
         height="140"
@@ -52,6 +49,7 @@ export default function ContentItem({
         </Typography>
         <Button
           onClick={() => addToBasket(id, title, description, price, image)}
+          variant={checkBasket ? "contained" : "outlined"}
         >
           {checkBasket ? "Remove from Basket" : "Add to Basket"}
         </Button>

@@ -1,4 +1,4 @@
-import Content from "../components/content/Content";
+import Content from "../../components/content/Content";
 
 function Product() {
   return <Content />;

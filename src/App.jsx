@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import HomePage from "./pages/HomePage";
-import Product from "./pages/Product";
-import Basket from "./pages/Basket";
-import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/private/HomePage";
+import Product from "./pages/private/Product";
+import Basket from "./pages/private/Basket";
+import LoginPage from "./pages/public/LoginPage";
 
 function App() {
   return (
