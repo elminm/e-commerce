@@ -5,7 +5,13 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ContextProvider } from "./context/Context.jsx";
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ContextProvider>
     <QueryClientProvider client={queryClient}>

@@ -1,83 +1,108 @@
-import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { CircularProgress, IconButton, Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
-import axios from "axios";
+import ModalDelete from "../../components/ModalDelete";
 
-const columns = [
-  { field: "id", headerName: "ID" },
-  {
-    field: "title",
-    headerName: "Title",
-    editable: true,
-    width: 200,
-  },
-  {
-    field: "category",
-    headerName: "Category",
-    editable: true,
-  },
-  {
-    field: "price",
-    headerName: "Price",
-    type: "number",
-    width: 100,
-  },
-  {
-    field: "description",
-    headerName: "Description",
-    sortable: false,
-    width: 500,
-  },
-  {
-    field: "actions",
-    headerName: "Actions",
-    sortable: false,
-    width: 200,
-    renderCell: (params) => {
-      const handleDelete = async () => {
-        try {
-          await axios.delete(`https://fakestoreapi.com/products/${params.id}`);
-        } catch (error) {
-          console.error("Error deleting product:", error);
-        }
-      };
-
-      const handleEdit = async () => {
-        console.log("Edit product:", params.id);
-      };
-
-      return (
-        <>
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={handleEdit}>Edit</button>
-        </>
-      );
-    },
-  },
-];
-
-export default function Admin() {
+function ProductTable() {
   const { products } = useContext(Context);
+  const [open, setOpen] = useState(false);
+  const [productId, setProductId] = useState(null);
+  const nav = useNavigate();
+
+  const handleOpen = (id) => {
+    setOpen(true);
+    setProductId(id);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setProductId(null);
+  };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      {products && products?.data?.length > 0 && (
-        <DataGrid
-          rows={products.data}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "1rem",
+          marginTop: "1rem",
+          marginRight: 10,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            // Handle new product addition
+            console.log("Add New Product clicked");
           }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
-      )}
-    </Box>
+        >
+          Add New Product
+        </Button>
+      </div>
+      <TableContainer component={Paper}>
+        <Table aria-label="Product Table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <strong>Title</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Description</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Price</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Actions</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products?.data?.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>{item.title}</TableCell>
+                <TableCell>{item.description}</TableCell>
+                <TableCell>{item.price}</TableCell>
+                <TableCell sx={{ display: "flex" }}>
+                  <IconButton onClick={() => handleOpen(item.id)} color="error">
+                    <DeleteIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      nav(`/edit/${item.id}`);
+                      console.log("Edit clicked for product ID:", item.id);
+                    }}
+                    color="primary"
+                    aria-label="edit"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+            <ModalDelete
+              open={open}
+              productId={productId}
+              products={products?.data}
+              handleClose={handleClose}
+            />
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
+
+export default ProductTable;
