@@ -19,6 +19,7 @@ export default function Register() {
   const { registeredUsers, setRegisteredUsers } = useContext(Context);
   const formik = useFormik({
     initialValues: {
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -67,6 +68,17 @@ export default function Register() {
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              id="username"
+              name="username"
+              label="Username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
             />
             <TextField
               fullWidth

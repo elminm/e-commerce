@@ -5,6 +5,7 @@ import Product from "./pages/private/Product";
 import Basket from "./pages/private/Basket";
 import LoginPage from "./pages/public/LoginPage";
 import Register from "./pages/public/Register";
+import AuthLogin from "./pages/public/AuthLogin";
 import Admin from "./pages/private/Admin";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -28,7 +29,14 @@ function App() {
           <Route path="/basket" element={<Basket />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/admin"
+            element={
+              <AuthLogin>
+                <Admin />
+              </AuthLogin>
+            }
+          />
         </Routes>
       </Layout>
     </>

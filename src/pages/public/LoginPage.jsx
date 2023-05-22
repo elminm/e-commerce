@@ -32,7 +32,7 @@ export default function LoginPage() {
         (q) => q.email == values.email && q.password == values.password
       );
       if (isRegistered) {
-        setUser([values]);
+        setUser([isRegistered]);
         navigate("/admin");
       } else {
         alert("you must register first");

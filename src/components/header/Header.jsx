@@ -36,7 +36,7 @@ export default function Header() {
                   display: "inline-block",
                   fontSize: "23px",
                 }}
-              >{`Welcome ${user[0].email} ; )`}</span>
+              >{`Welcome ${user[0].username} ; )`}</span>
             ) : (
               "E - Commerce"
             )}

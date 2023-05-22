@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ContextProvider } from "./context/Context.jsx";
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ContextProvider>
     <QueryClientProvider client={queryClient}>
